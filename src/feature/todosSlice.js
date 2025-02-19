@@ -61,11 +61,11 @@ export const addtodo = (text) => (dispatch) => {
   dispatch(addTodoStart());
 
   try {
-    addToSuccess({
+    dispatch(addToSuccess({
       id: Date.now(),
       text,
       completed: false,
-    });
+    }))
   } catch (error) {
     dispatch(addTodoError("Failed to add todo"));
   }
