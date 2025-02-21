@@ -1,11 +1,13 @@
 import "./App.css";
-import UseEffectAPI from "./components/UseEffectAPI";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+import FetchDataWithRedux from "./components/FetchDataWithRedux";
 
 function App() {
   return (
-    <>
-      <UseEffectAPI />
-    </>
+    <Provider store={store}>
+      <FetchDataWithRedux />
+    </Provider>
   );
 }
 

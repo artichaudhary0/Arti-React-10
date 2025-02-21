@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 
 function UseEffectAPI() {
   const [data, setData] = useState([]); // data is not present
-  const [loading, setLoading] = useState(true);
 
   // useEffect :
   useEffect(() => {
