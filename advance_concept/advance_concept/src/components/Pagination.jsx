@@ -1,11 +1,9 @@
-import React from "react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 function Pagination({ currentPage, totalPosts, postsPerPage, onPageChange }) {
-  const totalPages = Math.ceil(totalPosts / postsPerPage); // ceil => 1.1111 => 2 , 1.9999 = 2
-  // 101/10 => 10.1 => floor => 10 , ceil => 11
+  const totalPages = Math.ceil(totalPosts / postsPerPage);
 
-  const renderPageNumber = () => {
+  const renderPageNumbers = () => {
     const pages = [];
     const showEllipsis = totalPages > 7;
 
@@ -15,10 +13,9 @@ function Pagination({ currentPage, totalPosts, postsPerPage, onPageChange }) {
           pages.push(i);
         }
         pages.push("...");
-        pages.push(totalPages); // 1 2 3 4 5 ... 10
+        pages.push(totalPages);
       } else if (currentPage >= totalPages - 3) {
-        // 7
-        pages.push(1); // 1 ... 6 7 8 9 10
+        pages.push(1);
         pages.push("...");
         for (let i = totalPages - 4; i <= totalPages; i++) {
           pages.push(i);
@@ -37,6 +34,7 @@ function Pagination({ currentPage, totalPosts, postsPerPage, onPageChange }) {
         pages.push(i);
       }
     }
+
     return pages;
   };
 
@@ -44,15 +42,13 @@ function Pagination({ currentPage, totalPosts, postsPerPage, onPageChange }) {
     <div className="pagination">
       <button
         className="pagination-button"
+        onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        onClick={() => {
-          onPageChange(currentPage - 1);
-        }}
       >
         <ChevronLeftIcon className="pagination-icon" />
       </button>
 
-      {renderPageNumber().map((page, index) => (
+      {renderPageNumbers().map((page, index) => (
         <button
           key={index}
           className={`pagination-button ${
@@ -64,12 +60,11 @@ function Pagination({ currentPage, totalPosts, postsPerPage, onPageChange }) {
           {page}
         </button>
       ))}
+
       <button
         className="pagination-button"
+        onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        onClick={() => {
-          onPageChange(currentPage + 1);
-        }}
       >
         <ChevronRightIcon className="pagination-icon" />
       </button>
