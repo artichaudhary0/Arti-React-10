@@ -19,7 +19,7 @@ export const fetchPostById = createAsyncThunk(
   "posts/fetchPostById",
   async (postId) => {
     const [postResponse, commentsResponse] = await Promise.all([
-      axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`),
+      axios.get(`https://jsonplaceholder.typicode./${postId}`),
       axios.get(
         `https://jsonplaceholder.typicode.com/posts/${postId}/comments`
       ),

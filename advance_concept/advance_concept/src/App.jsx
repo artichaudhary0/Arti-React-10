@@ -1,22 +1,19 @@
-import { useState } from "react";
 import "./App.css";
-import Pagination from "./components/Pagination";
 import PostList from "./components/PostList";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PostDetails from "./components/PostDetails";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <Provider store={store}>
-      <PostList />
-      {/* <Pagination
-        currentPage={4}
-        totalPosts={100}
-        postsPerPage={10}
-        onPageChange={() => {}}
-      /> */}
+      <Router>
+        <Routes>
+          <Route path="/" element={<PostList />} />
+          <Route path="/posts/:postId" element={<PostDetails />}></Route>
+        </Routes>
+      </Router>
     </Provider>
   );
 }
