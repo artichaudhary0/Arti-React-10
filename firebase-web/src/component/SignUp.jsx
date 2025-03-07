@@ -14,10 +14,10 @@ function SignUp() {
   const [loading, setLoading] = useState(false);
 
   // firebase => signup
-  const { signup } = useAuth;
+  const { signup } = useAuth();
 
-  // after signup naviagte to login
-  const navigate = useNavigate;
+  // after signup navigate to login
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -44,9 +44,9 @@ function SignUp() {
         <UserPlus size={32} color="#250ed8" />
       </div>
       <div>
-        <h3>Create an new account</h3>
+        <h3>Create a new account</h3>
         <p>
-          <Link to="/login">Signin to your existing account</Link>
+          <Link to="/login">Sign in to your existing account</Link>
         </p>
       </div>
 

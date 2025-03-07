@@ -12,10 +12,10 @@ function Login() {
   // async
   const [loading, setLoading] = useState(false);
 
-  const { login } = useAuth;
+  const { login } = useAuth();
 
   // after signup naviagte to login
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   async function handleSubmit(event) {
     event.preventDefault();
