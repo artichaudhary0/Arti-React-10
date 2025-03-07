@@ -1,11 +1,11 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
-import { createContext, useState, useEffect, useContext } from "react";
-import { auth } from "../firebase";
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged
+} from 'firebase/auth';
+import { auth } from '../firebase';
 
 const AuthContext = createContext(null);
 
@@ -13,7 +13,7 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-export function AuthProvider({ childern }) {
+export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +26,7 @@ export function AuthProvider({ childern }) {
   }
 
   function logout() {
-    return signOut();
+    return signOut(auth);
   }
 
   useEffect(() => {
@@ -46,8 +46,8 @@ export function AuthProvider({ childern }) {
   };
 
   return (
-    <AuthProvider.Provider value={value}>
-      {!loading && childern}
-    </AuthProvider.Provider>
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
   );
 }
