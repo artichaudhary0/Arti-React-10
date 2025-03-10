@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth, handleAuthError } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { UserPlus } from "lucide-react";
 
@@ -14,10 +14,20 @@ function SignUp() {
   const [loading, setLoading] = useState(false);
 
   // firebase => signup
-  const { signup } = useAuth();
+  const { signup, googleSignIn } = useAuth();
 
   // after signup navigate to login
   const navigate = useNavigate();
+
+  async function handleGoggleSignIn() {
+    try {
+      await googleSignIn();
+      navigate("/dashboard");
+    } catch (error) {
+      setError(handleAuthError(error));
+      console.log(error);
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,8 +42,8 @@ function SignUp() {
       await signup(email, password);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      setError("Failed to create an account");
+      setError(handleAuthError(error)); // use globally defined AuthError
+      alert(error);
     }
     setLoading(false);
   }
@@ -66,6 +76,7 @@ function SignUp() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
+   
         <div>
           <label htmlFor="password">Password </label>
           <input
@@ -79,6 +90,7 @@ function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+
         <div>
           <label htmlFor="confirm-password">Confirm Password </label>
           <input
@@ -99,6 +111,12 @@ function SignUp() {
           </button>
         </div>
       </form>
+
+      <div>
+        <button onClick={handleGoggleSignIn} disabled={loading}>
+          {loading ? "Loading" : "Siginup with google"}
+        </button>
+      </div>
     </div>
   );
 }

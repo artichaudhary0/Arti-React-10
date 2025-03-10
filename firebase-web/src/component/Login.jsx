@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth, handleAuthError } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import { UserPlus } from "lucide-react";
 
@@ -26,8 +26,8 @@ function Login() {
       await login(email, password);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
-      setError("Failed to create an account");
+      setError(handleAuthError(error)); // use globally defined AuthError
+      alert(error);
     }
     setLoading(false);
   }
@@ -75,7 +75,7 @@ function Login() {
         </div>
         <div>
           <button type="submit" disabled={loading}>
-            {loading ? "Creating account" : "Signup"}
+            {loading ? "Creating account" : "Login"}
           </button>
         </div>
       </form>

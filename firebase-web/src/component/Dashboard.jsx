@@ -1,5 +1,5 @@
 import React from "react";
-import { useAuth } from "../context/AuthContext";
+import { handleAuthError, useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { LogOut, User } from "lucide-react";
 
@@ -12,7 +12,7 @@ function Dashboard() {
       await logout();
       navigate("/login");
     } catch (error) {
-      console.log("Failed to logout");
+      alert(handleAuthError(error));
     }
   }
 
